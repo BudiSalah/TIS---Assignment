@@ -6,6 +6,8 @@ export default function Square({
   setNextPlayer,
   setRemainingSteps,
   resetValue,
+  setXPath,
+  setOPath,
 }) {
   const squareStyle = {
     width: "60px",
@@ -22,10 +24,14 @@ export default function Square({
   const [value, setValue] = useState("");
 
   function clickHandle({ target }) {
-    console.log(target.getAttribute("data-path"));
-
     if (!value) {
       setValue(nextPlayer);
+
+      if (String(nextPlayer).toLowerCase() === "x") {
+        setXPath((oldVal) => [...oldVal, parseInt(path)]);
+      } else {
+        setOPath((oldVal) => [...oldVal, parseInt(path)]);
+      }
 
       setNextPlayer((oldVal) => {
         return String(oldVal).toLowerCase() === "x" ? "o" : "x";
